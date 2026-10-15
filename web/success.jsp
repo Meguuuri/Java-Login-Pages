@@ -4,11 +4,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
         <title>Success</title>
     </head>
     <body>
         <%@ include file="/header.jspf" %>
-
+        
         <h1>Login Successful</h1>
         <form action="CharacterCountingServlet" method="post">
             <p>Enter a string:
