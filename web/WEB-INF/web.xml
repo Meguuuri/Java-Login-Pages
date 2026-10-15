@@ -11,7 +11,7 @@
     </context-param>
     <context-param>
         <param-name>headerSection</param-name>
-        <param-value>SECTION</param-value>
+        <param-value>2CSA</param-value>
     </context-param>
     <context-param>
         <param-name>headerNames</param-name>
