@@ -40,7 +40,8 @@ public class CharacterCountingServlet extends HttpServlet {
         int vowelCount = 0;
         int consonantCount = 0;
         int symbolCount = 0;
-
+        int finalLen = 0;
+        char[] charArray=input.toCharArray();
         // TODO: loop through each char of input:
         //   whitespace              -> skip (counts toward length only)
         //   in digits               -> digitCount++
@@ -48,6 +49,26 @@ public class CharacterCountingServlet extends HttpServlet {
         //   in consonants           -> consonantCount++
         //   otherwise               -> symbolCount++
         // Expected for "Hello World 123!": length 16, digits 3, vowels 3, consonants 7, symbols 1
+        for(char c: charArray){
+            finalLen++;
+            if(Character.isWhitespace(c)){
+                continue;
+            }
+            if(Character.isDigit(c)){
+                digitCount++;
+            }
+            else if(Character.isLetter(c)){
+            char tempLower = Character.toLowerCase(c);
+            if(tempLower=='a'||tempLower=='e'||tempLower=='i'||tempLower=='o'||tempLower=='u'){
+                vowelCount++;
+            }else{
+                consonantCount++;
+            }
+          }
+            else{
+                symbolCount++;
+            }
+        }
 
         request.setAttribute("inputString", input);
         request.setAttribute("stringLength", input.length());
