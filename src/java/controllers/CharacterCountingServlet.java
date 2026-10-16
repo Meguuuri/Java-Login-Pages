@@ -19,7 +19,7 @@ public class CharacterCountingServlet extends HttpServlet {
     private String digits;
     private String vowels;
     private String consonants;
-
+    
     @Override
     public void init() throws ServletException {
         digits = getInitParameter("digits");
@@ -51,20 +51,18 @@ public class CharacterCountingServlet extends HttpServlet {
         // Expected for "Hello World 123!": length 16, digits 3, vowels 3, consonants 7, symbols 1
         for(char c: charArray){
             finalLen++;
-            if(Character.isWhitespace(c)){
-                continue;
-            }
-            if(Character.isDigit(c)){
+            if(digits.indexOf(c) !=-1){
                 digitCount++;
             }
-            else if(Character.isLetter(c)){
-            char tempLower = Character.toLowerCase(c);
-            if(tempLower=='a'||tempLower=='e'||tempLower=='i'||tempLower=='o'||tempLower=='u'){
+            else if (vowels.indexOf(c) != -1){
                 vowelCount++;
-            }else{
+            }
+            else if (consonants.indexOf(c)!=-1){
                 consonantCount++;
             }
-          }
+            else if (c ==' '){
+                continue;
+            }
             else{
                 symbolCount++;
             }
