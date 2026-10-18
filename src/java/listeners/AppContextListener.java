@@ -1,6 +1,10 @@
 package listeners;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,11 +17,12 @@ import javax.servlet.ServletContextListener;
  *   appDate, headerText, footerText
  */
 public class AppContextListener implements ServletContextListener {
+    
+    private ScheduledExecutorService scheduler;
 
     public void contextInitialized(ServletContextEvent sce) {
-        ServletContext ctx = sce.getServletContext();
+       final ServletContext ctx = sce.getServletContext();
 
-        // Startup date/time (does not auto-update, per the MP spec)
         ctx.setAttribute("appDate", new Date());
 
         // Header: SUBJECT / SECTION / LASTNAME1 - LASTNAME2
@@ -26,8 +31,19 @@ public class AppContextListener implements ServletContextListener {
                 + ctx.getInitParameter("headerNames");
         ctx.setAttribute("headerText", header);
 
-        // Footer identifier
+  
         ctx.setAttribute("footerText", ctx.getInitParameter("footerMP"));
+        
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        scheduler.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                String currentTime = df.format(new Date());
+                ctx.setAttribute("liveClock", currentTime);
+            }
+        }, 0, 1, TimeUnit.SECONDS);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
@@ -35,5 +51,6 @@ public class AppContextListener implements ServletContextListener {
         ctx.removeAttribute("appDate");
         ctx.removeAttribute("headerText");
         ctx.removeAttribute("footerText");
+        ctx.removeAttribute("liveClock");
     }
 }

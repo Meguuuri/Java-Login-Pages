@@ -29,15 +29,47 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // TODO: check in this order, set request attribute "errorMessage", forward to error.jsp:
-        //   1. both empty        -> "Username and password are required."
-        //   2. username empty    -> "Username is required."
-        //   3. password empty    -> "Password is required."
-        //   4. username != validUsername -> "Incorrect username."
-        //   5. password != validPassword -> "Incorrect password."
-        // If all pass: forward to success.jsp
+        boolean userEmpty = (username == null || username.trim().length() == 0);
+        boolean passEmpty = (password == null || password.trim().length() == 0);
 
-        forward(request, response, "/success.jsp"); // TODO: remove this placeholder
+        // 1. both empty -> "Username and password are required."
+        if (userEmpty && passEmpty) {
+            request.setAttribute("errorMessage", "Username and password are required.");
+            forward(request, response, "/error.jsp");
+            return;
+        }
+
+        // 2. username empty -> "Username is required."
+        if (userEmpty) {
+            request.setAttribute("errorMessage", "Username is required.");
+            forward(request, response, "/error.jsp");
+            return;
+        }
+
+        // 3. password empty -> "Password is required."
+        if (passEmpty) {
+            request.setAttribute("errorMessage", "Password is required.");
+            forward(request, response, "/error.jsp");
+            return;
+        }
+
+        // 4. username != validUsername -> "Incorrect username."
+        if (!username.equals(validUsername)) {
+            request.setAttribute("errorMessage", "Incorrect username.");
+            forward(request, response, "/error.jsp");
+            return;
+        }
+
+        // 5. password != validPassword -> "Incorrect password."
+        if (!password.equals(validPassword)) {
+            request.setAttribute("errorMessage", "Incorrect password.");
+            forward(request, response, "/error.jsp");
+            return;
+        }
+
+        // If all pass: set session or attribute if needed and forward to success.jsp
+        request.setAttribute("username", username);
+        forward(request, response, "/success.jsp");
     }
 
     @Override

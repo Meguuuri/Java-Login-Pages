@@ -19,7 +19,7 @@ public class CharacterCountingServlet extends HttpServlet {
     private String digits;
     private String vowels;
     private String consonants;
-
+    
     @Override
     public void init() throws ServletException {
         digits = getInitParameter("digits");
@@ -40,7 +40,8 @@ public class CharacterCountingServlet extends HttpServlet {
         int vowelCount = 0;
         int consonantCount = 0;
         int symbolCount = 0;
-
+        int finalLen = 0;
+        char[] charArray=input.toCharArray();
         // TODO: loop through each char of input:
         //   whitespace              -> skip (counts toward length only)
         //   in digits               -> digitCount++
@@ -48,6 +49,24 @@ public class CharacterCountingServlet extends HttpServlet {
         //   in consonants           -> consonantCount++
         //   otherwise               -> symbolCount++
         // Expected for "Hello World 123!": length 16, digits 3, vowels 3, consonants 7, symbols 1
+        for(char c: charArray){
+            finalLen++;
+            if(digits.indexOf(c) !=-1){
+                digitCount++;
+            }
+            else if (vowels.indexOf(c) != -1){
+                vowelCount++;
+            }
+            else if (consonants.indexOf(c)!=-1){
+                consonantCount++;
+            }
+            else if (c ==' '){
+                continue;
+            }
+            else{
+                symbolCount++;
+            }
+        }
 
         request.setAttribute("inputString", input);
         request.setAttribute("stringLength", input.length());

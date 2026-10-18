@@ -12,7 +12,7 @@
 
         <h1>Login Failed</h1>
         <p style="color:red;"><c:out value="${requestScope.errorMessage}"/></p>
-        <p><a href="index.jsp">Back to Login</a></p>
+        <p><button href="index.jsp">Back to Login</button></p>
 
         <%@ include file="/footer.jspf" %>
     </body>
