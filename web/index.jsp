@@ -14,6 +14,7 @@
             <p>Username: <input type="text" name="username"></p>
             <p>Password: <input type="password" name="password"></p>
             <p><input type="submit" value="Login"></p>
+         <p><input type="submit" value="Logout" formaction="start.jsp" formmethod="get"></p>
         </form>
 
         <%@ include file="/footer.jspf" %>

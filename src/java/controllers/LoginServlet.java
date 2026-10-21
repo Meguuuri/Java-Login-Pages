@@ -55,14 +55,14 @@ public class LoginServlet extends HttpServlet {
 
         // 4. username != validUsername -> "Incorrect username."
         if (!username.equals(validUsername)) {
-            request.setAttribute("errorMessage", "Incorrect username.");
+            request.setAttribute("errorMessage", "Incorrect username or password.");
             forward(request, response, "/error.jsp");
             return;
         }
 
         // 5. password != validPassword -> "Incorrect password."
         if (!password.equals(validPassword)) {
-            request.setAttribute("errorMessage", "Incorrect password.");
+            request.setAttribute("errorMessage", "Incorrect username or password.");
             forward(request, response, "/error.jsp");
             return;
         }

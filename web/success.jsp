@@ -28,8 +28,15 @@
                 <li>Number of consonants: <c:out value="${requestScope.consonantCount}"/></li>
                 <li>Number of symbols: <c:out value="${requestScope.symbolCount}"/></li>
             </ul>
+            <form action="success.jsp" method="get">
+            <p><input type="submit" value="Count Again"></p>
+            </form>
         </c:if>
-
+            
+            <form action="index.jsp" method="get">
+               <p><input type="submit" value="LogOut"></p> 
+            </form>
         <%@ include file="/footer.jspf" %>
+        
     </body>
 </html>

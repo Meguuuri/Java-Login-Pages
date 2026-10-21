@@ -10,10 +10,10 @@
     <body>
         <%@ include file="/header.jspf" %>
 
-        <h1>Login Failed</h1>
-        <p style="color:red;"><c:out value="${requestScope.errorMessage}"/></p>
         <form action="index.jsp" method="get">
-        <p><button type="submit">Back to Login</button></p>
+             <h1>Login Failed</h1>
+            <p style="color:red; font-weight: bold;"><c:out value="${requestScope.errorMessage}"/></p>
+            <p><input type="submit" value="Try Again"></p>
         </form>
         <%@ include file="/footer.jspf" %>
     </body>
